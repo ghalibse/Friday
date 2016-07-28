@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
     public static class LoginFragment extends Fragment {
 
         private EditText mLoginEditText;
-        private Button mLoginButton;
+        private Button mLoginLog;
+        private Button mLoginSign;
 
         public LoginFragment() {
 
@@ -71,13 +72,62 @@ public class MainActivity extends AppCompatActivity {
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            mLoginButton = (Button) view.findViewById(R.id.f_login_btn);
+            mLoginLog = (Button) view.findViewById(R.id.f_login_login);
+            mLoginSign = (Button) view.findViewById(R.id.f_login_sign);
             mLoginEditText = (EditText) view.findViewById(R.id.f_login_user);
 
-            mLoginButton.setOnClickListener(new View.OnClickListener() {
+            mLoginLog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mName = mLoginEditText.getText().toString();
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.a_main_frame, new WelcomeFragment())
+                            .commit();
+                }
+            });
+
+            mLoginSign.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.a_main_frame, new SignFragment())
+                            .commit();
+                }
+            });
+        }
+    }
+
+    public static class SignFragment extends Fragment {
+
+        private Button mSignButton;
+        private EditText mSignName;
+
+        public SignFragment() {
+
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_sign,
+                    container, false);
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            mSignButton = (Button) view.findViewById(R.id.f_sign_btn);
+            mSignName = (EditText) view.findViewById(R.id.f_sign_name);
+
+            mSignButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mName = mSignName.getText().toString();
+
                     getActivity()
                             .getSupportFragmentManager()
                             .beginTransaction()
